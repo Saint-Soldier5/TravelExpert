@@ -1,0 +1,47 @@
+
+/*  Author: Cecilia Santiago     
+    Styles used for Customer form and Booking form
+*/
+
+.back-image {
+    background-image: url("../images/IMG_20190731_0956162762.jpg");  
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size:cover;
+    background-attachment:fixed;  
+    
+}
+
+
+#regform {
+    font-family: 'Abel', sans-serif;  
+    color:rgb(20, 63, 65);    
+    width:60%;
+    align-items: center;    
+    margin:auto;
+    font-weight:bold;
+    padding: 3%;    
+    margin-top:5%;
+    background-color:rgb(202, 198, 198);
+ 
+}
+
+/* for input boxes */
+#fname, #lname, #addr1,
+#addr2, #email, #city,
+#cntry, #hphone, #bphone,
+#prov, #post, #phone,
+#bday, #usrname, #passwd,
+#currdate, #travelcnt, #log,
+#depart, #arrive{
+    background:rgb(234, 245, 248); 
+}
+
+#msg{
+    color:maroon;    
+    background:wheat;
+ }
+
+.form-group {
+    padding-top: 15px;
+ }

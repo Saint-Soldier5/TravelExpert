@@ -1,0 +1,95 @@
+
+extends layout
+
+block othlink
+    // link(rel='stylesheet' href='https://www.w3schools.com/w3css/4/w3.css') - Commented out to fix footer alignment.
+
+    // Bootstrap link
+    link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'
+     integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm' crossorigin='anonymous')
+
+    // CSS file for index.html
+    link(rel='stylesheet' href='/css/mystyler.css')
+
+    // JavaScript link
+    script(src='/js/myjsscript.js')
+
+block content  
+  
+  if !currentUser     
+    form(style="padding: 15px;" method='POST' action='/login?redirect=/book/' + pack.PackageId)
+      .form-row
+        .form-group.col-md-2
+          br
+          label(for="sign") Sign in before booking   
+        .form-group.col-md-2
+          label(for="username") Username
+          input.form-control-plaintext(name="username" placeholder="Username" type="text")
+        .form-group.col-md-4
+          label(for="password") Password
+          input.form-control(name="password" type="password" placeholder="******")
+        .form-group.col-md-4
+          br
+          button.btn.btn-primary Log In    
+  else  
+    h3 Hello #{currentUser.CustFirstName} 
+      br
+      p
+      a(href="/log-out" style="font-size:20px;") Log Out
+  
+      
+    form#regform(method='POST' action='/book')
+      h1(style='text-align:center;')            
+          strong Book a #{pack.PkgDesc}
+      p Begin: #{pack.PkgStartDate}
+      p End: #{pack.PkgEndDate}
+      p Price: $#{pack.PkgBasePrice}
+
+
+      .form-row      
+        .form-group.col-md-4
+          label(for='currdate') Start Date:
+          input#currdate.form-control(type='date' name='StartDate' placeholder='yyyy-mm-dd' required='')
+          small#msg(style='display:none;') Enter Start travel here.
+        
+        .form-group.col-md-4
+          label(for='currdate') End Date:
+          input#currdate.form-control(type='date' name='EndDate' placeholder='yyyy-mm-dd' required='')
+          small#msg(style='display:none;') Enter End travel here.
+
+
+        .form-group.col-md-3
+          label(for='travelcnt') No. of Traveller:
+          input#travelcnt.form-control(type='text' name='TravelerCount' required='')
+          small#msg(style='display:none;') Enter No. of Traveller here.
+
+      .form-row      
+        .form-group.col-md-5
+          label(for='depart') From:
+          input#depart.form-control(type='test' name='Departure' placeholder='From' required='')
+          small#msg(style='display:none;') Enter City of Departure.
+
+        .form-group.col-md-5
+          label(for='arriv') To:
+          input#arrive.form-control(type='test' name='Arrival' placeholder='To' required='')
+          small#msg(style='display:none;') Enter City of Arrival.
+
+          input(style='display:none' name='BookingNo' value='SWSW')
+          input(style='display:none;' name='CustomerId' value=currentUser.CustomerId)
+          input(style='display:none;' name='TripTypeId' value="21")
+          input(style='display:none;' name='PackageId' value=pack.PackageId)
+          
+
+      .form-row
+        .form-group.col-md-4
+        .form-group.col-md-4
+            button#res.btn.btn-primary(style='margin-bottom: 20px;' type='reset' onclick='Confirm_Buttons()') Cancel            
+            button#sub.btn.btn-primary(style='margin-left: 4px; margin-bottom: 20px;' type='submit' onclick='Confirm_Buttons()') Book            
+
+                
+    script.
+      var urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.has('usermsg'))
+      document.getElementById('usermsg').innerText = document.getElementById('usermsg').innerText= urlParams.get('usermsg');
+
+      LoadthePage();
